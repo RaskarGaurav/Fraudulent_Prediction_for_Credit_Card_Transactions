@@ -1,0 +1,81 @@
+--> All the Features in RAW dataset
+
+Data columns (total 24 columns):
+ #   Column                 Non-Null Count    Dtype  
+---  ------                 --------------    -----  
+ 0   Unnamed: 0             1296675 non-null  int64  
+ 1   trans_date_trans_time  1296675 non-null  object 
+ 2   cc_num                 1296675 non-null  int64  
+ 3   merchant               1296675 non-null  object 
+ 4   category               1296675 non-null  object 
+ 5   amt                    1296675 non-null  float64
+ 6   first                  1296675 non-null  object 
+ 7   last                   1296675 non-null  object 
+ 8   gender                 1296675 non-null  object 
+ 9   street                 1296675 non-null  object 
+ 10  city                   1296675 non-null  object 
+ 11  state                  1296675 non-null  object 
+ 12  zip                    1296675 non-null  int64  
+ 13  lat                    1296675 non-null  float64
+ 14  long                   1296675 non-null  float64
+ 15  city_pop               1296675 non-null  int64  
+ 16  job                    1296675 non-null  object 
+ 17  dob                    1296675 non-null  object 
+ 18  trans_num              1296675 non-null  object 
+ 19  unix_time              1296675 non-null  int64  
+ 20  merch_lat              1296675 non-null  float64
+ 21  merch_long             1296675 non-null  float64
+ 22  is_fraud               1296675 non-null  int64  
+ 23  merch_zipcode          1100702 non-null  float64
+ 
+ ***Operations for ETL Pipeline***
+ 
+ -Feature Engineering
+ 1)--> Converting (dob) to Age & append into input
+ 2)--> Calculating Distance Between Customer & Merchant(lat1, lon1, lat2, lon2) & append into input
+ 3)--> Transaction Frequency (trans_date_trans_time) & append into input
+ 
+ 
+ 4)--> Remove index and unwanted columns ('trans_date_trans_time','Unnamed: 0','cc_num','first','last','trans_num','street','city')
+ 
+ 
+ -Data Transformation 
+ 5)--> use "PowerTransform_StdScaling_model.pkl" to transform on following Numeric columns
+			amt                     
+			zip                      
+			lat                     
+			long                    
+			city_pop                 
+			unix_time                
+			merch_lat               
+			merch_long              
+			merch_zipcode            
+			age                      
+			transaction_distance    
+			trans_count_per_day     
+		dtype: float64
+ 6)--> After this, If any value numeric value is Greater than +3 or Less thean -3 impute it as +3 and -3 respectively.
+
+
+ 7)--> Remove followin columns ['merch_long','merch_lat','merch_zipcode','long']
+ 
+ -Encoding 
+ 
+ 8)--> use "oneHotEncoder_model.pkl"to transform on non-numeric columns only
+		merchant    693
+		category     14
+		gender        2
+		state        50
+		job         493
+	**For taking input create DropDown list for merchant,category,gender,state & job using unique values from dataset
+ 9)--> convert numeric columns to csr_matrix -> csr_matrix(x_train_Numeric.values)
+ 10)-> concat encoded data and csr matrix -> hstack([x_train_Numeric_np, x_train_NonNumeric_np])
+ 
+ 
+ -Feature Selection 
+ 11)-> use "feature_selection_model.pkl" to transform data 
+ 
+ 
+ -Model Deploy
+ 12)-> use any of the Model given in with this file.
+			*tip- xgBoost model returns anomaly_score(Probability) on .predict(data)[:,1] method   

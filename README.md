@@ -1,4 +1,5 @@
 # Fradulent_Prediction_for_Credit_Card_Transactions
-PostGradDiploma Project
-   
+## PostGradDiploma Project
+## Visit live site: https://mldeploy-u39m.onrender.com
+### GitHub Repo for Model deployment: https://github.com/RaskarGaurav/MLDeploy  
   The aim of the "Fraudulent Prediction for Credit Card Transaction" project is to create a reliable web application that uses user input to forecast the likelihood of fraudulent transactions. Transactions are categorized as "Low," "Mid," or "High" risk based on the anomaly score assigned by the application. The project's dataset, which has 24 features overall and includes 1.3 million training and 550,000 testing rows, is licensed under the Apache license. Data cleaning, feature transformation, engineering, selection, resolving class imbalance, and using supervised algorithms such as Random-Forest and XGBoost along with Unsupervised Isolation-Forest for predictive modeling are some of the key strategies used. The model was adjusted to increase the True Positive Rate of identifying fraudulent patterns, guaranteeing dependability and effectiveness. 
